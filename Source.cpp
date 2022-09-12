@@ -6,10 +6,9 @@ Graphics g;
 
 int main()
 {
-    g.DrawSquare(5, 5);
-    g.DrawSquare(7, 7);
-    g.DrawSquare(10, 10, 5);
-    g.DrawLine(100, 50, 150, 40);
+    //g.DrawLine(1, 1, 100, 1);
+    //g.DrawLine(100, 1 ,100, 100);
+    g.DrawRectangle(100, 100, 100, 100);
     std::cout << "Hello World!\n";
     system("pause");
 }
