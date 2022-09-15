@@ -1,8 +1,13 @@
 
 #include <iostream>
 #include "Graphics.h"
-
+#include "Class.h"
 Graphics g;
+
+void DrawRectangle(int x1, int y1, int x2, int y2)
+{
+
+}
 
 int main()
 {
