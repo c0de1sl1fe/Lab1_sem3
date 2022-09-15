@@ -39,7 +39,29 @@ BinaryImg::~BinaryImg()
     }
     delete[]array;
 }
-void Print()
+void BinaryImg::Print() const
 {
-
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            array[i][j] ? std::cout << "1" : std::cout << ".";
+        }
+    }
+}
+int BinaryImg::operator==(const BinaryImg& src) const
+{
+    if (row != src.row || col != src.col) { return 0; } // probably more fair to trow exception 
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (array[i][j] != src.array[i][j]) { return 0; }
+        }
+    }
+    return true;
+}
+int BinaryImg::operator!=(const BinaryImg& src) const
+{
+    return !(*this == src);
 }
