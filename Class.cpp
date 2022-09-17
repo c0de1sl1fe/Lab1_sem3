@@ -65,3 +65,84 @@ int BinaryImg::operator!=(const BinaryImg& src) const
 {
     return !(*this == src);
 }
+
+bool& BinaryImg::operator()(int x, int y)
+{
+    if ((x >= row || y >= col) || (x < 0 || y < 0)) { throw("invalid index"); }
+    return array[x][y];
+}
+BinaryImg BinaryImg::operator+(const BinaryImg& src) const
+{
+    if (row != src.row || col != src.col) { throw("Invalid dimensions of imgs"); }
+    BinaryImg result(row, col);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            result.array[i][j] = array[i][j] + src.array[i][j];
+        }
+    }
+    return result;
+}
+
+BinaryImg BinaryImg::operator*(const BinaryImg& src) const
+{
+    if (row != src.row || col != src.col) { throw("Invalid dimensions of imgs"); }
+    BinaryImg result(row, col);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            result.array[i][j] = array[i][j] * src.array[i][j];
+        }
+    }
+    return result;
+}
+
+BinaryImg BinaryImg::operator+(bool rhs) const
+{
+    BinaryImg result(row, col);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            result.array[i][j] = array[i][j] + rhs;
+        }
+    }
+    return result;
+}
+
+BinaryImg BinaryImg::operator*(bool rhs) const
+{
+    BinaryImg result(row, col);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            result.array[i][j] = array[i][j] * rhs;
+        }
+    }
+    return result;
+}
+BinaryImg BinaryImg::operator!()
+{
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            array[i][j] = !array[i][j];
+        }
+    }
+}
+
+std::ostream& operator<<(std::ostream& os, const BinaryImg& obj)
+{
+    // TODO: insert return statement here
+    for (int i = 0; i < obj.row; i++)
+    {
+        for (int j = 0; j < obj.col; j++)
+        {
+            obj.array[i][j] ? std::cout << "1" : std::cout << ".";
+        }
+    }
+}
