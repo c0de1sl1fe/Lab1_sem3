@@ -1,6 +1,7 @@
 #include "Class.h"
 #include <math.h>
 #include <iostream>
+#include "Graphics.h"
 
 BinaryImg::BinaryImg(int x, int y)
 {
@@ -39,16 +40,16 @@ BinaryImg::~BinaryImg()
     }
     delete[]array;
 }
-void BinaryImg::Print() const
-{
-    for (int i = 0; i < row; i++)
-    {
-        for (int j = 0; j < col; j++)
-        {
-            array[i][j] ? std::cout << "1" : std::cout << ".";
-        }
-    }
-}
+//void BinaryImg::Print() const
+//{
+//    for (int i = 0; i < row; i++)
+//    {
+//        for (int j = 0; j < col; j++)
+//        {
+//            array[i][j] ? std::cout << "1" : std::cout << ".";
+//        }
+//    }
+//}
 int BinaryImg::operator==(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { return 0; } // probably more fair to trow exception 
@@ -133,16 +134,74 @@ BinaryImg BinaryImg::operator!()
             array[i][j] = !array[i][j];
         }
     }
+    return *this;
+}
+
+BinaryImg& BinaryImg::operator= (const BinaryImg& src)
+{
+    if (this == (&src)) { return *this; }
+    if (row == src.row && col == src.col)
+    {
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                array[i][j] = src.array[i][j];
+            }
+        }
+        return *this;
+    }
+
+    for (int i = 0; i < row; i++)
+    {
+        delete[]array[i];
+    }
+    delete[]array;
+
+    row = src.row;
+    col = src.col;
+    array = new bool* [row];
+    for (int i = 0; i < row; i++)
+    {
+        array[i] = new bool[col];
+    }
+
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            array[i][j] = src.array[i][j];
+        }
+    }
+    return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const BinaryImg& obj)
 {
     // TODO: insert return statement here
+    //os << "(" << std::endl;
     for (int i = 0; i < obj.row; i++)
     {
         for (int j = 0; j < obj.col; j++)
         {
-            obj.array[i][j] ? std::cout << "1" : std::cout << ".";
+            obj.array[i][j] ? os << "1" : os << ".";
+        }
+        os << std::endl;
+    }
+    //os << ")";
+    return os;
+}
+
+
+double BinaryImg::AccumulationFactor() const
+{
+    int k = 0;
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (array[i][j]) { k++; }
         }
     }
+    return k / (row * col);
 }

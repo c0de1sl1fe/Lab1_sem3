@@ -22,7 +22,7 @@ public:
     BinaryImg operator+(bool rhs) const; // maybe need to realize this function inside class, to reach "коммутативность"
     BinaryImg operator*(bool rhs) const;
     BinaryImg operator!();
-    BinaryImg operator = (const BinaryImg & src);
-    int AccumulationFactor() const;
+    BinaryImg& operator= (const BinaryImg & src);
+    double AccumulationFactor() const;
 
 };
