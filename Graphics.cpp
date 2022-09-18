@@ -106,5 +106,11 @@ void Graphics::DrawSquare(float x, float y, float a, Color color)
 	this->DrawRectangle(x, y, x + a, y + a, color);
 }
 
+
+
+//void Graphics::DrawDot(float x, float y, Color color)
+//{
+//	Gdiplus::Pen p(Gdiplus::Color(color.R, color.G, color.B));
+//}
 Graphics::~Graphics() = default;
 
