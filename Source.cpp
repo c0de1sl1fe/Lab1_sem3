@@ -117,8 +117,8 @@ int main()
     {
         //BinaryImg B = DrawRectangle(2, 2, 4, 4);
         //BinaryImg A = DrawRectangle(a, b, a1, b1, B);
-        A.Print();
-        std::cout << A;
+        //A.Print();
+        //std::cout << A;
     }
     catch (EClassException &err)
     {
