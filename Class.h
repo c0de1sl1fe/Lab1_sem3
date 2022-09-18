@@ -24,7 +24,7 @@ public:
     int operator!=(const BinaryImg& src) const;
     bool& operator()(int x, int y);
 
-    bool operator()(int x, int y) const;
+    //bool operator()(int x, int y) const;
 
     BinaryImg operator+(const BinaryImg& src) const;
     BinaryImg operator*(const BinaryImg& src) const;

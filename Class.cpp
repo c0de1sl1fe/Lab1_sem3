@@ -100,14 +100,14 @@ bool& BinaryImg::operator()(int x, int y)
     }
     return array[x][y];
 }
-bool BinaryImg::operator()(int x, int y) const
-{
-    if ((x >= row || y >= col) || (x < 0 || y < 0))
-    {
-        throw EClassException("invalid index");
-    }
-    return array[x][y];
-}
+//bool BinaryImg::operator()(int x, int y) const
+//{
+//    if ((x >= row || y >= col) || (x < 0 || y < 0))
+//    {
+//        throw EClassException("invalid index");
+//    }
+//    return array[x][y];
+//}
 BinaryImg BinaryImg::operator+(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { throw EClassException("Invalid dimensions of imgs"); }
