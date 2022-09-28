@@ -30,6 +30,29 @@ BinaryImg DrawRectangle(int x1, int y1, int x2, int y2)
 
 
 }
+//BinaryImg DrawRectangle(int x1, int y1, int x2, int y2)
+//{
+//    if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0) { throw EClassException("working with numbers greater than zero"); }
+//
+//    int firstX = Min(x1, x2), secondX = Max(x1, x2), firstY = Min(y1, y2), secondY = Max(x1, x2);
+//    BinaryImg res(secondX + 1, secondY + 1);
+//    //res.Print();
+//    for (int i = firstX; i <= secondX; i++)
+//    {
+//        res(i, firstY) = true;
+//        res(i, secondY) = true;
+//    }
+//    //res.Print();
+//    for (int i = firstY; i <= secondY; i++)
+//    {
+//        res(firstX, i) = true;
+//        res(secondX, i) = true;
+//    }
+//
+//    return res;
+//
+//
+//}
 
 //BinaryImg DrawRectangle(int x1, int y1, int x2, int y2, const BinaryImg &src)
 //{
@@ -101,20 +124,25 @@ int main()
     //std::cout << Min(23, 11) << std::endl;
     std::cout << "Enter dimenstion of your rectangle:" << std::endl;
 
-    int a;
-    std::cout << "Enter x1:";
-    std::cin >> a;
-    int b;
-    std::cout << "Enter y1:";
-    std::cin >> b;
-    int a1;
-    std::cout << "Enter x2:";
-    std::cin >> a1;
-    int b1;
-    std::cout << "Enter y2:";
-    std::cin >> b1;
+    //int a;
+    //std::cout << "Enter x1:";
+    //std::cin >> a;
+    //int b;
+    //std::cout << "Enter y1:";
+    //std::cin >> b;
+    //int a1;
+    //std::cout << "Enter x2:";
+    //std::cin >> a1;
+    //int b1;
+    //std::cout << "Enter y2:";
+    //std::cin >> b1;
     try
     {
+        BinaryImg a(10, 10);
+        std::cout << a;
+        
+        a = DrawRectangle(3, 13, 17, 18);
+        a.Print(1);
         //BinaryImg B = DrawRectangle(2, 2, 4, 4);
         //BinaryImg A = DrawRectangle(a, b, a1, b1, B);
         //A.Print();

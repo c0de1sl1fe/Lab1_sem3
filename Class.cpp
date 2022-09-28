@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include "Graphics.h"
+#define SCALE 10
 
 void BinaryImg::DrawDot(float x, float y) const
 {
@@ -9,19 +10,20 @@ void BinaryImg::DrawDot(float x, float y) const
 }
 void BinaryImg::DrawBlankDot(float x, float y) const
 {
-    screen->DrawLine(x, y, x + 10, y);
-    screen->DrawLine(x, y, x, y + 10);
-    screen->DrawLine(x + 10, y, x + 10, y + 10);
-    screen->DrawLine(x, y + 10, x + 10, y + 10);
+    screen->DrawLine(x, y, x + SCALE, y);
+    screen->DrawLine(x, y, x, y + SCALE);
+    screen->DrawLine(x + SCALE, y, x + SCALE, y + SCALE);
+    screen->DrawLine(x, y + SCALE, x + SCALE, y + SCALE);
 }
 
 
 BinaryImg::BinaryImg(int x, int y)
 {
+    screen = NULL;
     if (x <= 0 || y <= 0) { throw EClassException("invalid dimension"); }
     row = x;
     col = y;
-    screen = new Graphics(((x * 10) + 10), ((y * 10) + 50));
+    //screen = new Graphics(((x * SCALE) + 10), ((y * SCALE) + 50));
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
@@ -31,9 +33,10 @@ BinaryImg::BinaryImg(int x, int y)
 }
 BinaryImg::BinaryImg(const BinaryImg& src)
 {
+    screen = NULL;
     row = src.row;
     col = src.col;
-    screen = new Graphics((row * 10)+ 10, (col * 10) + 50);
+    //screen = new Graphics((row * SCALE)+ 10, (col * SCALE) + 50);
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
@@ -55,7 +58,7 @@ BinaryImg::~BinaryImg()
         delete[]array[i];
     }
     delete[]array;
-    delete screen;
+    //delete screen;
 }
 
 
@@ -69,12 +72,33 @@ void BinaryImg::Print() const
     {
         for (int j = 0; j < col; j++)
         {
-           array[i][j] ? DrawDot((float)(i*10), (float)(j*10)) : DrawBlankDot((float)(i*10), (float)(j*10));
+            array[i][j] ? DrawDot((float)(i * SCALE), (float)(j * SCALE)) : DrawBlankDot((float)(i * SCALE), (float)(j * SCALE));
            //if (!array[i][j]) { DrawBlankDot(i, j); }
         }
         //DrawBlankDot(i+100, i*10);
     }
 }
+
+void BinaryImg::Print(int i = 1)
+{
+    screen = new Graphics((row * SCALE) + SCALE*12, (col * SCALE) + SCALE*12);
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+            
+            array[i][j] ? DrawDot((float)(i * SCALE), (float)(j * SCALE)) : DrawBlankDot((float)(i * SCALE), (float)(j * SCALE));
+            //if (!array[i][j]) { DrawBlankDot(i, j); }
+        }
+        //DrawBlankDot(i+100, i*10);
+    }
+    delete screen;
+}
+
+
+
+
+
 int BinaryImg::operator==(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { return 0; } // probably more fair to trow exception 
@@ -197,7 +221,7 @@ BinaryImg& BinaryImg::operator= (const BinaryImg& src)
 
     row = src.row;
     col = src.col;
-    screen = new Graphics(((row * 10) + 10), ((col * 10) + 50));
+    //screen = new Graphics(((row * SCALE) + 10), ((col * SCALE) + 50));
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
@@ -243,7 +267,7 @@ double BinaryImg::AccumulationFactor() const
     }
     return k / (row * col);
 }
-
+//friend function
 BinaryImg operator+(bool rhs, const BinaryImg& src)
 {
     //BinaryImg result(src.GetRow(), src.GetCol());
@@ -265,6 +289,8 @@ BinaryImg operator+(bool rhs, const BinaryImg& src)
     }
     return result;
 }
+
+//friend functin
 BinaryImg operator*(bool rhs, const BinaryImg& src)
 {
     //BinaryImg result(src.GetRow(), src.GetCol());

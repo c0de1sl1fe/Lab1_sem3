@@ -19,6 +19,7 @@ public:
     int GetRow() const;
     int GetCol() const;
     void Print() const;
+    void Print(int i);
     friend std::ostream& operator<<(std::ostream& os, const BinaryImg& obj);
     int operator==(const BinaryImg& src) const;
     int operator!=(const BinaryImg& src) const;
