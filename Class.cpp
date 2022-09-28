@@ -86,11 +86,8 @@ void BinaryImg::Print(int i = 1)
     {
         for (int j = 0; j < col; j++)
         {
-            
             array[i][j] ? DrawDot((float)(i * SCALE), (float)(j * SCALE)) : DrawBlankDot((float)(i * SCALE), (float)(j * SCALE));
-            //if (!array[i][j]) { DrawBlankDot(i, j); }
         }
-        //DrawBlankDot(i+100, i*10);
     }
     delete screen;
 }
@@ -124,14 +121,7 @@ bool& BinaryImg::operator()(int x, int y)
     }
     return array[x][y];
 }
-//bool BinaryImg::operator()(int x, int y) const
-//{
-//    if ((x >= row || y >= col) || (x < 0 || y < 0))
-//    {
-//        throw EClassException("invalid index");
-//    }
-//    return array[x][y];
-//}
+
 BinaryImg BinaryImg::operator+(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { throw EClassException("Invalid dimensions of imgs"); }
@@ -217,7 +207,7 @@ BinaryImg& BinaryImg::operator= (const BinaryImg& src)
         delete[]array[i];
     }
     delete[]array;
-    delete screen;
+    //delete screen;
 
     row = src.row;
     col = src.col;
@@ -238,19 +228,34 @@ BinaryImg& BinaryImg::operator= (const BinaryImg& src)
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const BinaryImg& obj)
+//std::ostream& operator<<(std::ostream& os, const BinaryImg& obj)
+//{
+//    // TODO: insert return statement here
+//    //os << "(" << std::endl;
+//    for (int i = 0; i < obj.row; i++)
+//    {
+//        for (int j = 0; j < obj.col; j++)
+//        {
+//            obj.array[i][j] ? os << "1" : os << ".";
+//        }
+//        os << std::endl;
+//    }
+//    //os << ")";
+//    return os;
+//}
+
+//right print
+std::ostream& operator<<(std::ostream& os, BinaryImg& obj)
 {
-    // TODO: insert return statement here
-    //os << "(" << std::endl;
+    obj.screen = new Graphics((obj.row * SCALE) + SCALE * 12, (obj.col * SCALE) + SCALE * 12);
     for (int i = 0; i < obj.row; i++)
     {
         for (int j = 0; j < obj.col; j++)
         {
-            obj.array[i][j] ? os << "1" : os << ".";
+            obj.array[i][j] ? obj.DrawDot((float)(i * SCALE), (float)(j * SCALE)) : obj.DrawBlankDot((float)(i * SCALE), (float)(j * SCALE));
         }
-        os << std::endl;
     }
-    //os << ")";
+    delete obj.screen;
     return os;
 }
 

@@ -7,10 +7,13 @@ private:
     bool** array;
     int row;
     int col;
-    Graphics* screen;
+
 
     void DrawDot(float x, float y) const;
     void DrawBlankDot(float x, float y) const;
+
+protected:
+    Graphics* screen;
 
 public:
     BinaryImg(int x, int y);
@@ -18,14 +21,16 @@ public:
     ~BinaryImg();
     int GetRow() const;
     int GetCol() const;
+
+    //test prints 
     void Print() const;
     void Print(int i);
-    friend std::ostream& operator<<(std::ostream& os, const BinaryImg& obj);
+
+    //friend std::ostream& operator<<(std::ostream& os, const BinaryImg& obj);
+    friend std::ostream& operator<<(std::ostream& os, BinaryImg& obj);
     int operator==(const BinaryImg& src) const;
     int operator!=(const BinaryImg& src) const;
     bool& operator()(int x, int y);
-
-    //bool operator()(int x, int y) const;
 
     BinaryImg operator+(const BinaryImg& src) const;
     BinaryImg operator*(const BinaryImg& src) const;
