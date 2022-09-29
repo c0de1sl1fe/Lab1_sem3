@@ -90,9 +90,19 @@ int main()
 
     try
     {
-        BinaryImg a(10, 10);
+        int test = 14;
+        BinaryImg a(test, test);
         //std::cout << a;
-        DrawRectangle(2, 2, 7, 5, a);
+        int one = 3, two = test - 3;
+        while (one <= two)
+        {
+            DrawRectangle(one, one, two, two, a);
+            one += 2;
+            two -= 2;
+        }
+
+
+        //DrawRectangle(1, 1, 10, 10, a);
         //a = DrawRectangle(3, 13, 17, 8);
         std::cout << a;
 
