@@ -23,20 +23,19 @@ BinaryImg::BinaryImg(int x, int y)
     if (x <= 0 || y <= 0) { throw EClassException("invalid dimension"); }
     row = x;
     col = y;
-    //screen = new Graphics(((x * SCALE) + 10), ((y * SCALE) + 50));
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
         array[i] = new bool[col] {};
     }
-    
 }
+
+
 BinaryImg::BinaryImg(const BinaryImg& src)
 {
     screen = NULL;
     row = src.row;
     col = src.col;
-    //screen = new Graphics((row * SCALE)+ 10, (col * SCALE) + 50);
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
@@ -51,6 +50,8 @@ BinaryImg::BinaryImg(const BinaryImg& src)
         }
     }
 }
+
+
 BinaryImg::~BinaryImg()
 {
     for (int i = 0; i < row; i++)
@@ -60,6 +61,7 @@ BinaryImg::~BinaryImg()
     delete[]array;
     //delete screen;
 }
+
 
 
 int BinaryImg::GetRow() const { return row; }
@@ -73,11 +75,10 @@ void BinaryImg::Print() const
         for (int j = 0; j < col; j++)
         {
             array[i][j] ? DrawDot((float)(i * SCALE), (float)(j * SCALE)) : DrawBlankDot((float)(i * SCALE), (float)(j * SCALE));
-           //if (!array[i][j]) { DrawBlankDot(i, j); }
         }
-        //DrawBlankDot(i+100, i*10);
     }
 }
+
 
 void BinaryImg::Print(int i = 1)
 {
@@ -93,9 +94,6 @@ void BinaryImg::Print(int i = 1)
 }
 
 
-
-
-
 int BinaryImg::operator==(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { return 0; } // probably more fair to trow exception 
@@ -108,10 +106,13 @@ int BinaryImg::operator==(const BinaryImg& src) const
     }
     return true;
 }
+
+
 int BinaryImg::operator!=(const BinaryImg& src) const
 {
     return !(*this == src);
 }
+
 
 bool& BinaryImg::operator()(int x, int y)
 {
@@ -121,6 +122,17 @@ bool& BinaryImg::operator()(int x, int y)
     }
     return array[x][y];
 }
+
+
+bool BinaryImg::operator()(int x, int y) const
+{
+    if ((x >= row || y >= col) || (x < 0 || y < 0))
+    {
+        throw EClassException("invalid index");
+    }
+    return array[x][y];
+}
+
 
 BinaryImg BinaryImg::operator+(const BinaryImg& src) const
 {
@@ -136,6 +148,7 @@ BinaryImg BinaryImg::operator+(const BinaryImg& src) const
     return result;
 }
 
+
 BinaryImg BinaryImg::operator*(const BinaryImg& src) const
 {
     if (row != src.row || col != src.col) { throw EClassException("Invalid dimensions of imgs"); }
@@ -150,6 +163,7 @@ BinaryImg BinaryImg::operator*(const BinaryImg& src) const
     return result;
 }
 
+
 BinaryImg BinaryImg::operator+(bool rhs) const
 {
     BinaryImg result(row, col);
@@ -163,6 +177,7 @@ BinaryImg BinaryImg::operator+(bool rhs) const
     return result;
 }
 
+
 BinaryImg BinaryImg::operator*(bool rhs) const
 {
     BinaryImg result(row, col);
@@ -175,6 +190,8 @@ BinaryImg BinaryImg::operator*(bool rhs) const
     }
     return result;
 }
+
+
 BinaryImg BinaryImg::operator!()
 {
     for (int i = 0; i < row; i++)
@@ -186,6 +203,7 @@ BinaryImg BinaryImg::operator!()
     }
     return *this;
 }
+
 
 BinaryImg& BinaryImg::operator= (const BinaryImg& src)
 {
@@ -207,11 +225,10 @@ BinaryImg& BinaryImg::operator= (const BinaryImg& src)
         delete[]array[i];
     }
     delete[]array;
-    //delete screen;
 
     row = src.row;
     col = src.col;
-    //screen = new Graphics(((row * SCALE) + 10), ((col * SCALE) + 50));
+
     array = new bool* [row];
     for (int i = 0; i < row; i++)
     {
@@ -228,23 +245,7 @@ BinaryImg& BinaryImg::operator= (const BinaryImg& src)
     return *this;
 }
 
-//std::ostream& operator<<(std::ostream& os, const BinaryImg& obj)
-//{
-//    // TODO: insert return statement here
-//    //os << "(" << std::endl;
-//    for (int i = 0; i < obj.row; i++)
-//    {
-//        for (int j = 0; j < obj.col; j++)
-//        {
-//            obj.array[i][j] ? os << "1" : os << ".";
-//        }
-//        os << std::endl;
-//    }
-//    //os << ")";
-//    return os;
-//}
 
-//right print
 std::ostream& operator<<(std::ostream& os, BinaryImg& obj)
 {
     obj.screen = new Graphics((obj.row * SCALE) + SCALE * 12, (obj.col * SCALE) + SCALE * 12);
@@ -272,18 +273,11 @@ double BinaryImg::AccumulationFactor() const
     }
     return k / (row * col);
 }
+
+
 //friend function
 BinaryImg operator+(bool rhs, const BinaryImg& src)
 {
-    //BinaryImg result(src.GetRow(), src.GetCol());
-    //for (int i = 0; i < src.GetRow(); i++)
-    //{
-    //    for (int j = 0; j < src.GetCol(); j++)
-    //    {
-    //        result(i,j) = src(i,j) + rhs;
-    //    }
-    //}
-    //return result
     BinaryImg result(src.row, src.col);
     for (int i = 0; i < src.row; i++)
     {
@@ -295,18 +289,10 @@ BinaryImg operator+(bool rhs, const BinaryImg& src)
     return result;
 }
 
+
 //friend functin
 BinaryImg operator*(bool rhs, const BinaryImg& src)
 {
-    //BinaryImg result(src.GetRow(), src.GetCol());
-    //for (int i = 0; i < src.GetRow(); i++)
-    //{
-    //    for (int j = 0; j < src.GetCol(); j++)
-    //    {
-    //        result(i, j) = src(i, j) * rhs;
-    //    }
-    //}
-    //return result;
     BinaryImg result(src.row, src.col);
     for (int i = 0; i < src.row; i++)
     {
@@ -316,7 +302,6 @@ BinaryImg operator*(bool rhs, const BinaryImg& src)
         }
     }
     return result;
-
 }
 
 EClassException::EClassException(const char* err)
@@ -326,7 +311,6 @@ EClassException::EClassException(const char* err)
 }
 void EClassException::Print()
 {
-    
     std::cout << _err << std::endl;
 }
 EClassException::~EClassException() {}

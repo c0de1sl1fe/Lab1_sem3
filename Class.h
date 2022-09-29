@@ -7,12 +7,8 @@ private:
     bool** array;
     int row;
     int col;
-
-
     void DrawDot(float x, float y) const;
     void DrawBlankDot(float x, float y) const;
-
-protected:
     Graphics* screen;
 
 public:
@@ -26,26 +22,22 @@ public:
     void Print() const;
     void Print(int i);
 
-    //friend std::ostream& operator<<(std::ostream& os, const BinaryImg& obj);
     friend std::ostream& operator<<(std::ostream& os, BinaryImg& obj);
     int operator==(const BinaryImg& src) const;
     int operator!=(const BinaryImg& src) const;
     bool& operator()(int x, int y);
-
+    bool operator()(int x, int y) const;
     BinaryImg operator+(const BinaryImg& src) const;
     BinaryImg operator*(const BinaryImg& src) const;
-    BinaryImg operator+(bool rhs) const; // maybe need to realize this function inside class, to reach "коммутативность"
+    BinaryImg operator+(bool rhs) const; 
     BinaryImg operator*(bool rhs) const;
     BinaryImg operator!();
     BinaryImg& operator= (const BinaryImg & src);
     double AccumulationFactor() const;
-
-
     friend BinaryImg operator*(bool rhs, const BinaryImg& src);
     friend BinaryImg operator+(bool rhs, const BinaryImg& src);
 };
-//BinaryImg operator*(bool rhs, const BinaryImg& src);
-//BinaryImg operator+(bool rhs, const BinaryImg& src);
+
 
 class EClassException
 {

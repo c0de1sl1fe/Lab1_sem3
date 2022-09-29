@@ -8,7 +8,6 @@ namespace Internal {
 }
 
 
-
 class Graphics
 {
 	struct Color {
@@ -21,9 +20,6 @@ public:
 	void DrawLine(float x1, float y1, float x2, float y2, Color color = { 0,0,0 });
 	void DrawRectangle(float x1, float y1, float x2, float y2, Color color = {0,0,0 });
 	void DrawSquare(float x, float y, float a = 10 , Color color = { 0,0,0 });
-
-
-	//void DrawDot(float x, float y, Color color = { 0,0,0 });
 	~Graphics();
 };
 
