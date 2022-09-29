@@ -100,12 +100,7 @@ int main()
             one += 2;
             two -= 2;
         }
-
-
-        //DrawRectangle(1, 1, 10, 10, a);
-        //a = DrawRectangle(3, 13, 17, 8);
         std::cout << a;
-
     }
     catch (EClassException &err)
     {
